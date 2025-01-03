@@ -1,5 +1,5 @@
 #include "app_base.h"
-#include "drv_display.h"
+#include "svc_display.h"
 #include "app_manager.h"
 #include "app_ui.h"
 
@@ -19,7 +19,7 @@
         b = temp;			\
     } while (0)
 
-static const char app_tag[] = {"drv_display"};
+static const char app_tag[] = {"svc_display"};
 
 EventGroupHandle_t disp_evt;
 esp_lcd_panel_handle_t panel_handle = NULL;
@@ -29,7 +29,6 @@ color_t *idle_fb = NULL;
 static int64_t time_bg, time_ed;
 static bool trans_done(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
 {
-	time_ed = esp_timer_get_time();
 	BaseType_t isFaWoken = false;
 	xEventGroupSetBitsFromISR(disp_evt, EVT_DISP_READY, &isFaWoken);
 	portYIELD_FROM_ISR(isFaWoken);
@@ -113,9 +112,7 @@ void drv_display(void *pvParameters)
 
 	while (xEventGroupWaitBits(disp_evt, EVT_DISP_READY | EVT_DISP_MODIFIED, pdTRUE, pdTRUE, portMAX_DELAY))
 	{
-		ESP_LOGI(app_tag, "FPS: %.2f", 1000000.0 / (time_ed - time_bg));
 		SWAP(front_fb, back_fb);
-		time_bg = esp_timer_get_time();
 		ESP_ERROR_CHECK(esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, LCD_H_RES, LCD_V_RES, front_fb));
 	}
 }

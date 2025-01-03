@@ -1,5 +1,5 @@
 #include "app_base.h"
-#include "drv_display.h"
+#include "svc_display.h"
 #include "app_manager.h"
 #include "app_ui.h"
 #include <memory.h>
@@ -11,12 +11,12 @@ EventGroupHandle_t global_evt;
 static const char app_tag[] = {"app_manager"};
 
 static char buf[1024];
-void task_dump()
+static void task_dump()
 {
 	vTaskList(buf);
 	printf("Name\t\tState\tPrio\tStack\tNum\tCoreID\n%s\n", buf);
 }
-void memory_dump()
+static void memory_dump()
 {
 	printf("Heap info for MALLOC_CAP_8BIT:\n");
 	heap_caps_print_heap_info(MALLOC_CAP_8BIT);
@@ -52,13 +52,22 @@ void rgb_demo()
 		vTaskDelay(pdMS_TO_TICKS(10));
 	}
 }
+void light_sleep_test()
+{
+	ESP_LOGI(app_tag, "Zzz...");
+	vTaskDelay(pdMS_TO_TICKS(50));
+	esp_sleep_enable_timer_wakeup(portMAX_DELAY);
+	esp_light_sleep_start();
+	ESP_LOGI(app_tag, "Nice dream!");
+}
 void app_manager(void *pvParameters)
 {
 	WAIT_FOR_START();
 	ESP_LOGI(app_tag, "Launched!");
+
 	vTaskDelay(pdMS_TO_TICKS(1000));
-	task_dump();
-	memory_dump();
+
+	rgb_demo();
 	
 	// esp_elf_t test;
 	// esp_elf_init(&test);
@@ -66,10 +75,5 @@ void app_manager(void *pvParameters)
 	// esp_elf_request(&test, 0, 0, NULL);
 	// esp_elf_deinit(&test);
 
-	ESP_LOGI(app_tag, "Zzz...");
-	vTaskDelay(pdMS_TO_TICKS(50));
-	esp_sleep_enable_timer_wakeup(portMAX_DELAY);
-	esp_light_sleep_start();
-	ESP_LOGI(app_tag, "Nice dream!");
 	while (1) vTaskDelay(pdMS_TO_TICKS(1000));
 }
