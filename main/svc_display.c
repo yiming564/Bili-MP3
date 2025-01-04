@@ -105,9 +105,9 @@ void drv_display(void *pvParameters)
 	init_lcd();
 
 	ESP_LOGI(app_tag, "Init frame buffer...");
-	front_fb = heap_caps_calloc(LCD_H_RES * LCD_V_RES, sizeof(color_t), MALLOC_CAP_SPIRAM | MALLOC_CAP_DMA);
-	back_fb =  heap_caps_calloc(LCD_H_RES * LCD_V_RES, sizeof(color_t), MALLOC_CAP_SPIRAM | MALLOC_CAP_DMA);
-	idle_fb =  heap_caps_calloc(LCD_H_RES * LCD_V_RES, sizeof(color_t), MALLOC_CAP_SPIRAM | MALLOC_CAP_DMA);
+	front_fb = heap_caps_calloc(LCD_H_RES * LCD_V_RES, sizeof(color_t), MALLOC_CAP_SPIRAM);
+	back_fb =  heap_caps_calloc(LCD_H_RES * LCD_V_RES, sizeof(color_t), MALLOC_CAP_SPIRAM);
+	idle_fb =  heap_caps_calloc(LCD_H_RES * LCD_V_RES, sizeof(color_t), MALLOC_CAP_SPIRAM);
 	update_fb();
 
 	while (xEventGroupWaitBits(disp_evt, EVT_DISP_READY | EVT_DISP_MODIFIED, pdTRUE, pdTRUE, portMAX_DELAY))

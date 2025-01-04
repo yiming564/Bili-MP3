@@ -65,9 +65,9 @@ void app_manager(void *pvParameters)
 	WAIT_FOR_START();
 	ESP_LOGI(app_tag, "Launched!");
 
-	vTaskDelay(pdMS_TO_TICKS(1000));
+	vTaskDelay(pdMS_TO_TICKS(10000));
 
-	rgb_demo();
+	// rgb_demo();
 	
 	// esp_elf_t test;
 	// esp_elf_init(&test);
@@ -75,5 +75,13 @@ void app_manager(void *pvParameters)
 	// esp_elf_request(&test, 0, 0, NULL);
 	// esp_elf_deinit(&test);
 
-	while (1) vTaskDelay(pdMS_TO_TICKS(1000));
+	while (1)
+	{
+		ESP_LOGI(app_tag, "Zzz...");
+		vTaskDelay(pdMS_TO_TICKS(1000));
+		esp_sleep_enable_timer_wakeup(14000000);
+		esp_light_sleep_start();
+		task_dump();
+		memory_dump();
+	}
 }

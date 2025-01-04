@@ -1,6 +1,7 @@
 #include "app_base.h"
 #include "svc_display.h"
 #include "app_manager.h"
+#include "app_file.h"
 #include "app_ui.h"
 
 #include <driver/gpio.h>
@@ -27,6 +28,7 @@ void app_main()
 	ESP_LOGI(app_tag, "Loading basic apps...");
 	xTaskCreate(drv_display,	"svc_display",	DEFAULT_DRV_STACK_SIZE,	NULL,	DEFAULT_SVC_PRIORITY,	NULL);
 	xTaskCreate(app_manager,	"app_manager",	DEFAULT_APP_STACK_SIZE,	NULL,	DEFAULT_APP_PRIORITY,	NULL);
+	xTaskCreate(app_file,		"app_file",		DEFAULT_APP_STACK_SIZE,	NULL,	DEFAULT_APP_PRIORITY,	NULL);
 	// xTaskCreate(app_ui,			"app_ui",		DEFAULT_APP_STACK_SIZE,	NULL,	DEFAULT_APP_PRIORITY,	NULL);
 
 	ESP_LOGI(app_tag, "Sending signals to start apps...");

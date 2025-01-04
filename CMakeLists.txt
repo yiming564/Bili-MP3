@@ -6,3 +6,5 @@ cmake_minimum_required(VERSION 3.16)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(BiliMP3)
+
+littlefs_create_partition_image(sys_data sys_data FLASH_IN_PROJECT)

@@ -7,9 +7,6 @@
 extern "C" {
 #endif
 
-#define EVT_START			(1 << 0)
-#define WAIT_FOR_START()	xEventGroupWaitBits(global_evt, EVT_START, pdFALSE, pdTRUE, portMAX_DELAY)
-
 void app_manager(void *pvParameters);
 
 #ifdef __cplusplus
