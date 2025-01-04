@@ -60,6 +60,7 @@ void light_sleep_test()
 	esp_light_sleep_start();
 	ESP_LOGI(app_tag, "Nice dream!");
 }
+
 void app_manager(void *pvParameters)
 {
 	WAIT_FOR_START();
@@ -77,11 +78,11 @@ void app_manager(void *pvParameters)
 
 	while (1)
 	{
-		ESP_LOGI(app_tag, "Zzz...");
+		// ESP_LOGI(app_tag, "Zzz...");
 		vTaskDelay(pdMS_TO_TICKS(1000));
-		esp_sleep_enable_timer_wakeup(14000000);
-		esp_light_sleep_start();
-		task_dump();
-		memory_dump();
+		// esp_sleep_enable_timer_wakeup(59000000);
+		// esp_light_sleep_start();
+		// task_dump();
+		// memory_dump();
 	}
 }

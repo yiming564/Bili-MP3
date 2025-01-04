@@ -26,8 +26,8 @@
 #define LEDC_FREQ		(4000)
 
 
-#define LCD_H_RES		(240)
-#define LCD_V_RES		(320)
+#define LCD_H_RES		(320)
+#define LCD_V_RES		(240)
 
 #define LCD_HOST		SPI2_HOST
 #define LCD_FREQ		(80 * 1000 * 1000)

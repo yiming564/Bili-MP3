@@ -10,9 +10,9 @@ typedef union
 {
 	struct
 	{
-		uint16_t r : 5;
-		uint16_t g : 6;
 		uint16_t b : 5;
+		uint16_t g : 6;
+		uint16_t r : 5;
 	};
 	uint16_t raw;
 } color16_t;
@@ -23,6 +23,8 @@ typedef color16_t color_t;
 
 extern EventGroupHandle_t disp_evt;
 extern color_t *idle_fb;
+
+#define PIXEL(x, y) (idle_fb[(x) + (y) * LCD_H_RES])
 
 void drv_display(void *pvParameters);
 void update_fb();

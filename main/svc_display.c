@@ -84,13 +84,15 @@ static void init_lcd()
 	ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi(LCD_HOST, &io_cfg, &io_handle));
 	esp_lcd_panel_dev_config_t panel_cfg = {
 		.reset_gpio_num = GPIO_RST,
-		.rgb_ele_order = LCD_RGB_ELEMENT_ORDER_BGR,
+		.rgb_ele_order = LCD_RGB_ELEMENT_ORDER_RGB,
 		.bits_per_pixel = 16,
 		.data_endian = LCD_RGB_DATA_ENDIAN_LITTLE
 	};
 	ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(io_handle, &panel_cfg, &panel_handle));
 	ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
 	ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
+	ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(panel_handle, true));
+	ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, false, true));
 	ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_handle, true));
 	xEventGroupSetBits(disp_evt = xEventGroupCreate(), EVT_DISP_READY);
 }
