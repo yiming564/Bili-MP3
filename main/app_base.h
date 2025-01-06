@@ -19,4 +19,24 @@ extern EventGroupHandle_t global_evt;
 }
 #endif
 
+#define ESP_CHECK_WITH_LOG(x, error_code, tag, format, ...)			\
+	do																\
+	{																\
+		if (x != ESP_OK) 											\
+		{ 															\
+			ESP_LOGE(tag, format, ##__VA_ARGS__); 					\
+			return error_code; 										\
+		} 															\
+	} while (0)
+
+#define APP_CHECK_WITH_LOG(cond, error_code, tag, format, ...)		\
+	do																\
+	{																\
+		if (!cond) 													\
+		{ 															\
+			ESP_LOGE(tag, format, ##__VA_ARGS__); 					\
+			return error_code; 										\
+		} 															\
+	} while (0)
+
 #endif

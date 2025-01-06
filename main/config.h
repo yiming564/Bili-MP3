@@ -6,7 +6,7 @@
 #define DEFAULT_APP_STACK_SIZE	(4096)
 #define DEFAULT_DRV_STACK_SIZE	(4096)
 #define DEFAULT_APP_PRIORITY	(1)
-#define DEFAULT_SVC_PRIORITY	(3)
+#define DEFAULT_SVC_PRIORITY	(2)
 
 #define GPIO_RST		(9)
 #define GPIO_CS			(39)
@@ -17,6 +17,8 @@
 #define GPIO_MISO		(13)
 
 #define GPIO_PWR_EN		(18)
+
+#define GPIO_SDMMC_CD	(4)
 
 #define LEDC_MODE		LEDC_LOW_SPEED_MODE
 #define LEDC_TIMER		LEDC_TIMER_0
@@ -35,5 +37,9 @@
 
 #define LCD_UPD_HZ		(60)
 #define LCD_UPD_PRED_MS	((1000) / LCD_UPD_HZ)
+
+#define SYS_LABEL		"sys_data"
+#define SYS_PATH		"/sys"
+#define EXT_PATH		"/ext"
 
 #endif

@@ -1,6 +1,7 @@
 #include "app_base.h"
 #include "svc_display.h"
 #include "app_manager.h"
+#include "svc_file.h"
 #include "app_ui.h"
 // #include <map>
 // #include <esp_timer.h>

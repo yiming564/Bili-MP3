@@ -26,8 +26,7 @@ esp_lcd_panel_handle_t panel_handle = NULL;
 static color_t *front_fb = NULL, *back_fb = NULL;
 color_t *idle_fb = NULL;
 
-static int64_t time_bg, time_ed;
-static bool trans_done(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
+static IRAM_ATTR bool trans_done(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
 {
 	BaseType_t isFaWoken = false;
 	xEventGroupSetBitsFromISR(disp_evt, EVT_DISP_READY, &isFaWoken);
@@ -98,9 +97,8 @@ static void init_lcd()
 }
 
 void update_fb() { SWAP(back_fb, idle_fb); xEventGroupSetBits(disp_evt, EVT_DISP_MODIFIED); }
-void drv_display(void *pvParameters)
+void svc_display(void *pvParameters)
 {
-	WAIT_FOR_START();
 	ESP_LOGI(app_tag, "Launched!");
 
 	init_backlight();

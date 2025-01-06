@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+void task_dump();
+void mem_dump();
 void app_manager(void *pvParameters);
 
 #ifdef __cplusplus
